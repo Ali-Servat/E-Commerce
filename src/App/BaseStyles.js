@@ -1,11 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-
-@font-face {
-    font-family: sahel;
-    src: url('src/App/Assets/Fonts/Sahel.woff');
-}
 
 *{
     box-sizing: border-box;
@@ -15,6 +10,7 @@ export default createGlobalStyle`
 
 body{
     font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
 }
 
 ul{

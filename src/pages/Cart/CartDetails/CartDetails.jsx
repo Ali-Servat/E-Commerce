@@ -1,77 +1,86 @@
-import { useParams } from 'react-router-dom';
-import { Button, CartDetailsContainer, Item, List } from './styles';
-import { api } from '../../../Shared/utils/api';
-import { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import { Button, CartDetailsContainer, Item, List } from "./styles";
+import { api } from "../../../Shared/utils/api";
+import { useEffect } from "react";
 
-const CartDetails = ({ currentCart }) => {
-     const { cartId } = useParams();
-     const [items, setItems] = useState([]);
+const CartDetails = ({
+  carts,
+  onFetch,
+  currentCartId,
+  onIncrement,
+  onDecrement,
+}) => {
+  const { cartId } = useParams();
+  const currentCart = carts.find((c) => c.id === currentCartId);
 
-     useEffect(() => {
-          const promises =
-               currentCart &&
-               currentCart.products.map(async (product) => {
-                    const response = await fetch(
-                         api.getItem(product.productId)
-                    );
-                    const json = await response.json();
-                    return json;
-               });
+  useEffect(() => {
+    const promises = currentCart?.products?.map(async (product) => {
+      const response = await fetch(
+        api.getItem(product.productId || product.id)
+      );
+      const json = await response.json();
+      return json;
+    });
 
-          if (promises)
-               Promise.all(promises).then((itemsArray) => {
-                    itemsArray.forEach((item) => {
-                         currentCart.products.forEach((product) => {
-                              if (product.productId === item.id)
-                                   item.quantity = product.quantity;
-                         });
-                    });
-                    setItems(itemsArray);
-               });
-     }, [currentCart]);
+    if (promises) {
+      Promise.all(promises).then((itemsArray) => {
+        itemsArray.forEach((item) => {
+          currentCart.products.forEach((product) => {
+            if (product.productId === item.id || product.id === item.id)
+              item.quantity = product.quantity;
+          });
+        });
+        onFetch(cartId, itemsArray);
+      });
+    }
+  }, [currentCartId]);
 
-     return (
-          <CartDetailsContainer>
-               {cartId && (
-                    <>
-                         <h3>Cart {cartId}</h3>
-                         <h3>Items in the cart:</h3>
-                         <List>
-                              {items &&
-                                   items.map((item) => (
-                                        <Item key={item.id}>
-                                             <img src={item.image} />
-                                             <div>
-                                                  <h4>{item.title}</h4>
-                                                  <p>
-                                                       quantity: {item.quantity}
-                                                  </p>
-                                                  <p>
-                                                       total price:{' '}
-                                                       {item.price *
-                                                            item.quantity}
-                                                       $
-                                                  </p>
-                                                  <Button>-</Button>
-                                                  <Button>+</Button>
-                                             </div>
-                                        </Item>
-                                   ))}
-                         </List>
-                         <p>
-                              total:{' '}
-                              {items.reduce((prev, current) => {
-                                   return (
-                                        prev + current.quantity * current.price
-                                   );
-                              }, 0)}
-                              $
-                         </p>
-                         <Button>pay</Button>
-                    </>
-               )}
-          </CartDetailsContainer>
-     );
+  const handleIncrement = (itemId) => {
+    onIncrement(cartId, itemId);
+  };
+
+  const handleDecrement = (itemId) => {
+    onDecrement(cartId, itemId);
+  };
+
+  return (
+    <CartDetailsContainer>
+      {cartId && (
+        <>
+          <h3>Cart {cartId}</h3>
+          <h3>Items in the cart:</h3>
+          <List>
+            {currentCart &&
+              currentCart.products.map((item) => (
+                <Item key={item.productId || item.id}>
+                  <img src={item.image} />
+                  <div>
+                    <h4>{item.title}</h4>
+                    <p>quantity: {item.quantity}</p>
+                    <p>
+                      total price: {(item.price * item.quantity).toFixed(2)}$
+                    </p>
+                    <Button onClick={() => handleDecrement(item.id)}>-</Button>
+                    <Button onClick={() => handleIncrement(item.id)}>+</Button>
+                  </div>
+                </Item>
+              ))}
+          </List>
+          <p>
+            total:{" "}
+            {currentCart?.products
+              ?.reduce((prev, current) => {
+                return prev + current.quantity * current.price;
+              }, 0)
+              .toFixed(2)}
+            $
+          </p>
+          <Link to="/home">return</Link>
+          <Button>pay</Button>
+        </>
+      )}
+    </CartDetailsContainer>
+  );
 };
 
 export default CartDetails;
