@@ -13,7 +13,7 @@ const StyledModal = styled(BaseModal)`
 
 const ModalContent = styled("div")`
   max-width: 600px;
-  padding: 1em;
+  padding: 2em;
   margin: 0 1em;
   background-color: #fff;
   border-radius: 0.5em;

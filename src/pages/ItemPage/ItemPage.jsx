@@ -5,7 +5,8 @@ import { ImageContainer, InfoContainer, ItemPageContainer } from "./styles";
 import Navbar from "../../components/Navbar/Navbar";
 import { useUser } from "../../Shared/context/user-context";
 import { useCart } from "../../Shared/context/cart-context";
-import { useModalValue } from "../../Shared/context/modal-context";
+import { useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
 const ItemPage = () => {
   let { itemId } = useParams();
@@ -13,7 +14,7 @@ const ItemPage = () => {
   const { carts, setCarts } = useCart();
   const userId = useUser()?.user?.id;
   const cartId = carts[0]?.id;
-  const setModalValue = useModalValue()[1];
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleAddToCart = async () => {
     const fetchOptions = {
@@ -29,12 +30,7 @@ const ItemPage = () => {
     if (res) {
       try {
         await updateCarts();
-
-        setModalValue(
-          userId
-            ? "Item was successfully added to your cart!"
-            : "Please login to add this item to your cart."
-        );
+        setModalIsOpen(true);
       } catch (e) {
         console.log(e);
       }
@@ -78,6 +74,15 @@ const ItemPage = () => {
           </ItemPageContainer>
         </>
       )}
+      <Modal
+        isOpen={modalIsOpen}
+        title="Login"
+        onClose={() => {
+          setModalIsOpen(false);
+        }}
+      >
+        Please login to Add items to your cart.
+      </Modal>
     </>
   );
 };

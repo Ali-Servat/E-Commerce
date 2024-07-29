@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useUser } from "../../Shared/context/user-context";
 import { Btn, LinkList, ListItem, Nav, StyledLink } from "./styles";
-import { useModalValue } from "../../Shared/context/modal-context";
-import messages from "../../Shared/utils/messages";
+import Modal from "../Modal/Modal";
 
 const Navbar = () => {
   const { user, setUser } = useUser();
   const [activePage, setActivePage] = useState("home");
-  const setModalText = useModalValue()[1];
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -60,8 +59,8 @@ const Navbar = () => {
           to="/cart"
           onClick={(e) => {
             if (!user) {
-              setModalText(messages.shouldLogin);
               e.preventDefault();
+              setModalIsOpen(true);
             }
           }}
         >
@@ -73,6 +72,16 @@ const Navbar = () => {
           <Btn to="/login">Login</Btn>
         )}
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        title="Login"
+        onClose={() => {
+          setModalIsOpen(false);
+        }}
+      >
+        Please login to visit your carts page.
+      </Modal>
     </Nav>
   );
 };

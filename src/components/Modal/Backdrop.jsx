@@ -5,6 +5,7 @@ const Backdrop = forwardRef(function Backdrop(
   { open, className, ...other },
   ref
 ) {
+  delete other.ownerState;
   return (
     <div
       className={`${className} ${open ? "base-backdrop-open" : ""}`}
