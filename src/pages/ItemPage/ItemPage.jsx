@@ -9,30 +9,34 @@ import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 
 const ItemPage = () => {
+  const [modalMessage, setModalMessage] = useState(null);
   let { itemId } = useParams();
   const item = useFetch(api.getItem(itemId));
   const { carts, setCarts } = useCart();
   const userId = useUser()?.user?.id;
   const cartId = carts[0]?.id;
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleAddToCart = async () => {
-    const fetchOptions = {
-      method: "PATCH",
-      body: JSON.stringify({
-        userId: userId,
-        date: Date.now().toLocaleString(),
-        products: [{ productId: itemId, quantity: 1 }],
-      }),
-    };
-    const res = await fetch(api.updateCart(cartId), fetchOptions);
+    if (!userId) {
+      setModalMessage("Please login to add this item to your cart.");
+    } else {
+      const fetchOptions = {
+        method: "PATCH",
+        body: JSON.stringify({
+          userId: userId,
+          date: Date.now().toLocaleString(),
+          products: [{ productId: itemId, quantity: 1 }],
+        }),
+      };
+      const res = await fetch(api.updateCart(cartId), fetchOptions);
 
-    if (res) {
-      try {
-        await updateCarts();
-        setModalIsOpen(true);
-      } catch (e) {
-        console.log(e);
+      if (res) {
+        try {
+          await updateCarts();
+          setModalMessage("Item was successfully added to your cart!");
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
   };
@@ -75,13 +79,13 @@ const ItemPage = () => {
         </>
       )}
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={modalMessage !== null}
         title="Login"
         onClose={() => {
-          setModalIsOpen(false);
+          setModalMessage(null);
         }}
       >
-        Please login to Add items to your cart.
+        {modalMessage}
       </Modal>
     </>
   );

@@ -1,11 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { api } from "../../Shared/utils/api";
 import { useUser } from "./user-context";
+import Proptypes from "prop-types";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [carts, setCarts] = useState([]);
   const userId = useUser().user?.id;
+  console.log(carts);
 
   useEffect(() => {
     if (userId) {
@@ -24,6 +26,10 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
+};
+
+CartProvider.prototype = {
+  children: Proptypes.element,
 };
 
 export const useCart = () => useContext(CartContext);
