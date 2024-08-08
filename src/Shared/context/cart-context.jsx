@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { api } from "../../Shared/utils/api";
 import { useUser } from "./user-context";
 import Proptypes from "prop-types";
+
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -19,7 +20,7 @@ export const CartProvider = ({ children }) => {
 
       getData();
     }
-  }, []);
+  }, [userId]);
 
   return (
     <CartContext.Provider value={{ carts, setCarts }}>
@@ -28,7 +29,7 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-CartProvider.prototype = {
+CartProvider.propTypes = {
   children: Proptypes.element,
 };
 
