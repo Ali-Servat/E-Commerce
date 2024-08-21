@@ -8,7 +8,6 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [carts, setCarts] = useState([]);
   const userId = useUser().user?.id;
-  console.log(carts);
 
   useEffect(() => {
     if (userId) {
