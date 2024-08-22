@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEvent, MouseEventHandler } from "react";
 import { Category } from "../../../Shared/types";
 import { FieldContainer, FilterbarContainer, SearchBtn } from "./styles";
 import { CATEGORIES } from "../../../Shared/types/constants";
+import RangeInput from "../../../components/RangeInput";
 
 type PropTypes = {
   category: Category;
@@ -47,17 +48,12 @@ const Filterbar = ({
         </label>
       </FieldContainer>
       <FieldContainer>
-        <label htmlFor="price-range">price range:</label>
-        <input
-          type="range"
-          id="price-range"
-          min="0"
-          max="200"
-          step="10"
-          defaultValue={200}
+        <RangeInput
+          label="Price range"
+          max={1000}
+          value={maxPrice}
           onMouseUp={handleMaxPriceChange}
         />
-        <span style={{ width: "45.75px" }}>{maxPrice}$</span>
       </FieldContainer>
       <FieldContainer>
         <input
