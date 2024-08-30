@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts, getProductsBack } from "../../api/products";
+import { getProducts } from "../../api/products";
 import { Product } from "../types";
 
 const useProducts = () => {
