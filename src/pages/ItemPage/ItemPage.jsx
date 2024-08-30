@@ -1,6 +1,5 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { api } from "../../Shared/utils/api";
-import useFetch from "../../Shared/hooks/useFetch";
 import { ImageContainer, InfoContainer, ItemPageContainer } from "./styles";
 import Navbar from "../../components/Navbar/Navbar";
 import { useUser } from "../../Shared/context/user-context";
@@ -10,11 +9,11 @@ import Modal from "../../components/Modal/Modal";
 
 const ItemPage = () => {
   const [modalMessage, setModalMessage] = useState(null);
-  let { itemId } = useParams();
-  const item = useFetch(api.getItem(itemId));
   const { carts, setCarts } = useCart();
   const userId = useUser()?.user?.id;
   const cartId = carts[0]?.id;
+  const location = useLocation();
+  const item = location.state;
 
   const handleAddToCart = async () => {
     if (!userId) {
@@ -25,7 +24,7 @@ const ItemPage = () => {
         body: JSON.stringify({
           userId: userId,
           date: Date.now().toLocaleString(),
-          products: [{ productId: itemId, quantity: 1 }],
+          products: [{ productId: item.id, quantity: 1 }],
         }),
       };
       const res = await fetch(api.updateCart(cartId), fetchOptions);

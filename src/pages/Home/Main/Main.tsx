@@ -46,7 +46,7 @@ const Main = () => {
         onMaxPriceChange={handleMaxPriceChange}
       />
       <ItemsList
-        items={filteredProducts}
+        products={filteredProducts}
         currentPagination={currentPagination}
         pageSize={pageSize}
       />
