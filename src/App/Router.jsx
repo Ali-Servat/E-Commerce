@@ -1,7 +1,7 @@
 import RootLayout from "../pages/Layouts/RootLayout";
 import Home from "../pages/Home/Home";
 import ItemPage from "../pages/ItemPage/ItemPage";
-import Login from "../pages/Login/Login";
+import UserAccess from "../pages/UserAccess";
 import CartDetails from "../pages/Cart/CartDetails/CartDetails";
 import CartPage from "../pages/Cart/CartPage";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="products">
           <Route path={":itemId"} element={<ItemPage />}></Route>
         </Route>
-        <Route path="login" element={<Login />} />
+        <Route path="userAccess" element={<UserAccess />} />
         <Route path="cart" element={<CartPage />}>
           <Route path=":cartId" element={<CartDetails />} />
         </Route>

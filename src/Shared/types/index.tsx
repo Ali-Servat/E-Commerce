@@ -3,7 +3,7 @@ import { CATEGORIES } from "./constants";
 export type Category = (typeof CATEGORIES)[number];
 
 export type Product = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
@@ -13,4 +13,15 @@ export type Product = {
     rate: number;
     count: number;
   };
+};
+
+export type Cart = {};
+
+export type User = {
+  id: string;
+  username: string;
+  password: string;
+  email: string;
+  carts: Cart[];
+  role: "customer" | "admin";
 };

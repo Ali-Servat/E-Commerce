@@ -1,4 +1,4 @@
-import { Product } from "../Shared/types";
+import { Product, User } from "../Shared/types";
 
 export function transformProduct(remoteProduct): Product {
   const { title, price, description, category, image, rating, ratingCount } =
@@ -12,5 +12,17 @@ export function transformProduct(remoteProduct): Product {
     category,
     image: image._url,
     rating: { rate: rating, count: ratingCount },
+  };
+}
+
+export function transformUser(remoteUser): User {
+  const { username, password, email, role, carts } = remoteUser.attributes;
+  return {
+    id: remoteUser.id,
+    username,
+    password,
+    email,
+    role,
+    carts,
   };
 }
