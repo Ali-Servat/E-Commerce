@@ -11,7 +11,8 @@ export const StyledButton = styled.button`
       : "1px solid " + props.theme.colors.primary};
   border-radius: 0.5em;
   padding: ${(props) => (props.variant === "text" ? 0 : "1em")};
-  margin-bottom: 1em;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
   cursor: pointer;
 
   &:hover {

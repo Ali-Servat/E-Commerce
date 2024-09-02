@@ -11,12 +11,12 @@ type PropType = {
 const LoginForm = ({ onModeChange }: PropType) => {
   const { input: username, handleChange: handleUsernameChange } = useInput();
   const { input: password, handleChange: handlePasswordChange } = useInput();
-  const { LoginUser } = useUser();
+  const { loginUser } = useUser();
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    LoginUser(username, password);
+    loginUser(username, password);
     navigate("/home");
   };
 

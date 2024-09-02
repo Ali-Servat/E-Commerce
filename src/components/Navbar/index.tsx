@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useUser } from "../../Shared/context/user-context";
 import { Btn, LinkList, ListItem, Nav, StyledLink } from "./styles";
-import Modal from "../Modal/Modal";
+import Avatar from "../Avatar";
+import Button from "../Button";
 
 const Navbar = () => {
-  const { user, setUser } = useUser();
+  const { user, logoutUser } = useUser();
   const [activePage, setActivePage] = useState("home");
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    logoutUser();
   };
 
   return (
@@ -55,33 +54,15 @@ const Navbar = () => {
         </ListItem>
       </LinkList>
       <div className="cta">
-        <Btn
-          to="/cart"
-          onClick={(e) => {
-            if (!user) {
-              e.preventDefault();
-              setModalIsOpen(true);
-            }
-          }}
-        >
-          Cart
-        </Btn>
+        {user && <Btn to="/cart">Cart</Btn>}
         {user ? (
-          <Btn onClick={handleLogout}>Logout</Btn>
+          <Button variant="text" onClick={handleLogout}>
+            <Avatar name={user.username} />
+          </Button>
         ) : (
           <Btn to="/userAccess">Sign up | Login</Btn>
         )}
       </div>
-
-      <Modal
-        isOpen={modalIsOpen}
-        title="Login"
-        onClose={() => {
-          setModalIsOpen(false);
-        }}
-      >
-        Please login to visit your carts page.
-      </Modal>
     </Nav>
   );
 };

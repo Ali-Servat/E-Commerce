@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm";
 type AccessMode = "signup" | "login";
 
 const UserAccess = () => {
-  const [mode, setMode] = useState<AccessMode>("signup");
+  const [mode, setMode] = useState<AccessMode>("login");
 
   const handleModeChange = () => {
     setMode((prevMode) => (prevMode === "signup" ? "login" : "signup"));

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { api } from "../../Shared/utils/api";
 import { ImageContainer, InfoContainer, ItemPageContainer } from "./styles";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../components/Navbar";
 import { useUser } from "../../Shared/context/user-context";
 import { useCart } from "../../Shared/context/cart-context";
 import { useState } from "react";

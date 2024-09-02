@@ -1,4 +1,4 @@
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../components/Navbar";
 import CartSide from "./CartSide/CartSide";
 import CartDetails from "./CartDetails/CartDetails";
 import { CartContainer } from "./styles";
