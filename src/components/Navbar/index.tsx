@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useUser } from "../../Shared/context/user-context";
 import { Btn, LinkList, ListItem, Nav, StyledLink } from "./styles";
 import Avatar from "../Avatar";
-import Button from "../Button";
+import DropDown, { DropDownItemType } from "../DropDown";
 
 const Navbar = () => {
   const { user, logoutUser } = useUser();
@@ -11,6 +11,10 @@ const Navbar = () => {
   const handleLogout = () => {
     logoutUser();
   };
+
+  const dropdownItems: DropDownItemType[] = [
+    { name: "logout", handleClick: handleLogout },
+  ];
 
   return (
     <Nav>
@@ -56,11 +60,14 @@ const Navbar = () => {
       <div className="cta">
         {user && <Btn to="/cart">Cart</Btn>}
         {user ? (
-          <Button variant="text" onClick={handleLogout}>
-            <Avatar name={user.username} />
-          </Button>
+          <DropDown
+            anchor={<Avatar name={user.username} />}
+            items={dropdownItems}
+          />
         ) : (
-          <Btn to="/userAccess">Sign up | Login</Btn>
+          <>
+            <Btn to="/userAccess">Sign up | Login</Btn>
+          </>
         )}
       </div>
     </Nav>
