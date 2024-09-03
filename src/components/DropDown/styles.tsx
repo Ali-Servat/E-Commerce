@@ -18,7 +18,7 @@ export const DropDownItem = styled.li`
   }
 `;
 
-export const DropDownList = styled.ul`
+export const StyledDropDownList = styled.ul`
   position: absolute;
   top: 100%;
   width: 100%;

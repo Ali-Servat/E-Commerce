@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Button from "../Button";
-import { Container, DropDownItem, DropDownList } from "./styles";
-import useOutsideClickDetector from "../../Shared/hooks/useOutsideClickDetector";
+import { Container } from "./styles";
+import DropDownList from "./DropDownList";
 
 export type DropDownItemType = {
   name: React.ReactNode;
@@ -16,30 +16,16 @@ const DropDown = ({
   items: DropDownItemType[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const clickedRef = useRef<HTMLDivElement>(null);
-  useOutsideClickDetector(clickedRef, setIsOpen);
 
   const toggleIsOpen = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <Container ref={clickedRef}>
+    <Container>
       <Button variant="text" onClick={toggleIsOpen}>
         {anchor}
       </Button>
-      {isOpen && (
-        <DropDownList>
-          {items &&
-            items.map((item) => (
-              <DropDownItem
-                key={JSON.stringify(item.name)}
-                onClick={item.handleClick}
-              >
-                {item.name}
-              </DropDownItem>
-            ))}
-        </DropDownList>
-      )}
+      {isOpen && <DropDownList items={items} setIsOpen={setIsOpen} />}
     </Container>
   );
 };

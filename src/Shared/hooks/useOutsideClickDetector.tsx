@@ -6,7 +6,10 @@ const useOutsideClickDetector = (
 ) => {
   useEffect(() => {
     const handleDOMClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current?.contains(e.target as HTMLElement)) {
+      if (
+        ref.current &&
+        !ref.current?.parentNode?.contains(e.target as HTMLElement)
+      ) {
         setIsOpen(false);
       }
     };
