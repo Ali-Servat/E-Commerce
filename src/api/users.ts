@@ -1,5 +1,5 @@
 import { transformUser } from "./transformer";
-import Parse from "parse/dist/parse.min.js";
+import Parse from "parse";
 
 export async function signUp(
   username: string,

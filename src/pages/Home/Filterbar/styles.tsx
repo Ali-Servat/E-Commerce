@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
-import colors from "../../../Shared/utils/UtilStyles";
 
 export const FilterbarContainer = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.theme?.colors.white};
   padding: 15px;
   border-radius: 5px;
   margin: 20px 0;
@@ -21,8 +20,8 @@ export const FieldContainer = styled.div`
 
 export const SearchBtn = styled.button`
   height: 100%;
-  background-color: ${colors.teal};
-  color: ${colors.white};
+  background-color: ${(props) => props.theme?.colors.primary};
+  color: ${(props) => props.theme?.colors.white};
   padding: 0.75em 2em;
   cursor: pointer;
 `;

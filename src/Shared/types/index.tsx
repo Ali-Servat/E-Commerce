@@ -15,13 +15,23 @@ export type Product = {
   };
 };
 
-export type Cart = {};
+type CartItem = {
+  itemId: string;
+  quantity: number;
+};
+
+export type Cart = {
+  id: string;
+  userId: string;
+  products: CartItem[];
+  checkedOut: boolean;
+};
 
 export type User = {
   id: string;
   username: string;
   password: string;
   email: string;
-  carts: Cart[];
+  cart: Cart;
   role: "customer" | "admin";
 };

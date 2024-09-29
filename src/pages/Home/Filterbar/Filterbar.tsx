@@ -1,6 +1,6 @@
-import { ChangeEvent, MouseEvent, MouseEventHandler } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import { Category } from "../../../Shared/types";
-import { FieldContainer, FilterbarContainer, SearchBtn } from "./styles";
+import { FieldContainer, FilterbarContainer } from "./styles";
 import { CATEGORIES } from "../../../Shared/types/constants";
 import RangeInput from "../../../components/RangeInput";
 

@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import colors from "../../Shared/utils/UtilStyles";
 
 export const LoginContainer = styled.form`
   position: fixed;
@@ -31,10 +30,10 @@ export const LoginBtn = styled.button`
   margin-top: 20px;
 `;
 
-export const ErrorMessage = styled.p`
-  display: ${(props) => (props.show === "true" ? "block" : "none")};
+export const ErrorMessage = styled.p<{ $show: boolean }>`
+  display: ${(props) => (props.$show ? "block" : "none")};
   text-align: center;
-  color: ${colors.red};
+  color: ${(props) => props.theme.colors.red};
 `;
 
 export const StyledForm = styled.form`
@@ -49,8 +48,6 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-
-//${(props) => props.theme.colors.primary}
 
 export const Title = styled.h3`
   margin-bottom: 1em;

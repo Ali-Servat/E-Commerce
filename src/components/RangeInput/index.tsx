@@ -1,8 +1,10 @@
+import { MouseEvent } from "react";
+
 type PropTypes = {
   label: string;
   max: number;
   value: number;
-  onMouseUp: () => void;
+  onMouseUp: (e: MouseEvent<HTMLInputElement>) => void;
 };
 
 const RangeInput = ({ label, max, value, onMouseUp }: PropTypes) => {

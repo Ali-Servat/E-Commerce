@@ -35,6 +35,10 @@ const Main = () => {
     setMaxPrice(maxPrice);
   };
 
+  const handlePageChange = (number: number) => {
+    setCurrentPagination(number);
+  };
+
   return (
     <MainContainer>
       <Filterbar
@@ -51,8 +55,8 @@ const Main = () => {
         pageSize={pageSize}
       />
       <Pagination
-        currentPagination={currentPagination}
-        setCurrentPagination={setCurrentPagination}
+        currentPage={currentPagination}
+        onPageChange={handlePageChange}
         pageSize={pageSize}
         allItemsCount={filteredProducts ? filteredProducts.length : 0}
       />
